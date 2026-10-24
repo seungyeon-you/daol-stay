@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>다올스테이 DAOL STAY · 서울 서초동</title>
+<meta name="description" content="하는 일마다 좋은 일이 오기를. 서울 서초동 골목 안, 한 팀만 쓰는 3·4층 복층 독채 다올스테이. 서초역·교대역 도보 6~7분.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="다올스테이 DAOL STAY">
+<meta property="og:description" content="서초동 골목 안, 한 팀만 쓰는 두 층짜리 집. 하는 일마다 좋은 일이 오기를.">
+<meta property="og:image" content="https://staydaol.com/photos/living_a.jpg">
+<meta property="og:url" content="https://staydaol.com/">
+<link rel="icon" href="photos/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* hero */
+.hero{margin-top:16px}
+.hero>img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.hero-text{padding:26px 0 8px;text-align:center}
+.hero .logo{width:132px;margin:0 auto 16px}
+.hero h1{font-size:clamp(25px,6.6vw,34px);line-height:1.4;margin:0 0 8px}
+.hero .sub{color:var(--ink-soft);margin:0}
+.poem{font-family:var(--serif);color:var(--ink-soft);text-align:center;margin:22px 0 0;line-height:2}
+.name-gloss{display:flex;gap:28px;margin:30px 0 6px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.name-gloss div{flex:1}
+.name-gloss b{display:block;font-family:var(--serif);font-size:36px;line-height:1;color:var(--latte);margin-bottom:8px;font-weight:700}
+.name-gloss span{font-size:14px;color:var(--ink-soft)}
+
+/* floor plan — the signature element */
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 10px 8px;margin:4px 0 6px}
+.plan svg{display:block;width:100%;height:auto}
+.plan .wall{fill:none;stroke:var(--ink);stroke-width:2.5}
+.plan .cell{fill:var(--surface);stroke:var(--ink);stroke-width:1.2;transition:fill .15s}
+.plan .bed{fill:var(--latte-soft)}
+.plan a:hover .cell,.plan a:focus .cell{fill:var(--latte-soft)}
+.plan a:hover .bed,.plan a:focus .bed{fill:var(--latte);fill-opacity:.35}
+.plan .stairs{stroke:var(--ink-soft);stroke-width:.8}
+.plan text{font-family:var(--sans);fill:var(--ink);font-size:11px;text-anchor:middle}
+.plan text.s{fill:var(--ink-soft);font-size:9.5px}
+.plan text.fl{font-family:var(--latin);font-style:italic;font-size:17px;text-anchor:start;fill:var(--latte)}
+.plan-hint{font-size:13px;color:var(--ink-soft);text-align:center;margin:6px 0 0}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);margin:18px 0 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{text-align:center;padding:12px 4px}
+.facts div+div{border-left:1px solid var(--line)}
+.facts b{display:block;font-family:var(--latin);font-size:30px;font-weight:600;line-height:1.1}
+.facts span{font-size:13px;color:var(--ink-soft)}
+
+/* spaces */
+.space{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:18px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 120px)}
+.space .shots{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.space .shots::-webkit-scrollbar{display:none}
+.space .shots img{flex:0 0 100%;width:100%;aspect-ratio:3/2;object-fit:cover;scroll-snap-align:start}
+.space .count{font-size:12px;color:var(--ink-soft);text-align:right;padding:6px 14px 0}
+.space-body{padding:12px 18px 20px}
+.space-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.space-head h3{font-size:22px}
+.space-head span{font-size:14px;color:var(--latte)}
+.space .tagline{font-family:var(--serif);margin:0 0 10px}
+.space .detail{font-size:15px;color:var(--ink-soft);margin:0}
+
+/* stay */
+.rating{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin:0 0 18px}
+.rating .score{font-family:var(--latin);font-size:40px;font-weight:600;line-height:1}
+.rating .score small{font-size:20px;color:var(--latte)}
+.rating div:last-child{font-size:14px;color:var(--ink-soft);line-height:1.5}
+.perks{list-style:none;margin:0 0 6px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.perks li{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:14px;line-height:1.5}
+.perks li b{display:block;font-family:var(--serif);font-size:15px;margin-bottom:2px}
+@media (max-width:420px){.perks{grid-template-columns:1fr}}
+.book{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.book a{flex:1 1 auto;text-align:center;text-decoration:none;padding:13px 16px;border-radius:6px;border:1px solid var(--line);background:var(--surface);font-size:15px}
+.book a.main{background:var(--ink);color:var(--bg);border-color:var(--ink);font-family:var(--serif);font-weight:700}
+.book a:hover{border-color:var(--latte)}
+
+/* letters */
+#letterStrip figure{flex-basis:70%}
+#letterStrip img{aspect-ratio:1/1}
+
+/* around */
+.near{list-style:none;margin:4px 0 0;padding:0}
+.near li{display:grid;grid-template-columns:58px 1fr auto;align-items:baseline;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.near .m{font-family:var(--latin);font-size:22px;font-weight:600;color:var(--latte);line-height:1}
+.near .m small{font-family:var(--sans);font-size:12px;margin-left:2px}
+.near .k{font-size:13px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="mark" href="#about"><img src="photos/logo.png" alt=""><span>Daol Stay</span></a>
+      <div class="langs" role="group" aria-label="Language">
+        <button data-lang="ko">한국어</button><button data-lang="en">EN</button><button data-lang="zh">中文</button><button data-lang="ja">日本語</button>
+      </div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="about" style="padding-top:0">
+    <div class="hero">
+      <img src="photos/living_a.jpg" alt="">
+      <div class="hero-text">
+        <img class="logo" src="photos/logo.png" alt="DAOL STAY 다올스테이">
+        <h1 data-t="tagline"></h1>
+        <p class="sub" data-t="taglineSub"></p>
+      </div>
+    </div>
+    <p class="poem" data-t="poem"></p>
+    <div class="name-gloss">
+      <div><b>다</b><span data-t="glossDa"></span></div>
+      <div><b>올</b><span data-t="glossOl"></span></div>
+    </div>
+    <p data-t="story1"></p>
+    <p data-t="story2"></p>
+    <div class="strip" id="gallery"></div>
+  </section>
+
+  <section id="house">
+    <p class="eyebrow">3F · 4F</p>
+    <h2 data-t="houseTitle"></h2>
+    <p class="lead" data-t="houseLead"></p>
+    <div class="plan" id="plan"></div>
+    <p class="plan-hint" data-t="planHint"></p>
+    <div class="facts" id="facts"></div>
+    <div id="spaceList" style="margin-top:22px"></div>
+  </section>
+
+  <section id="stay">
+    <h2 data-t="stayTitle"></h2>
+    <p class="lead" data-t="stayLead"></p>
+    <div class="rating" id="rating"></div>
+    <ul class="perks" id="perks"></ul>
+    <div class="book" id="book"></div>
+  </section>
+
+  <section id="letters">
+    <h2 data-t="lettersTitle"></h2>
+    <p class="lead" data-t="lettersLead"></p>
+    <div class="strip" id="letterStrip"></div>
+  </section>
+
+  <section id="around">
+    <h2 data-t="aroundTitle"></h2>
+    <p class="lead" data-t="aroundLead"></p>
+    <ul class="near" id="near"></ul>
+    <a class="cta" href="guide/" id="guideLink" data-t="aroundCta"></a>
+  </section>
+
+  <section id="location">
+    <h2 data-t="locTitle"></h2>
+    <div class="times">
+      <!-- TODO: 실제 체크인·체크아웃 시간으로 확인해 주세요 (CONFIG.checkin / CONFIG.checkout) -->
+      <div><span data-t="checkin"></span><b id="cin"></b></div>
+      <div><span data-t="checkout"></span><b id="cout"></b></div>
+    </div>
+    <dl class="info-list">
+      <div><dt data-t="addrLabel"></dt><dd><span data-t="addr"></span><br><button class="copy" id="copyBtn" data-t="copy"></button>
+        <div class="pills" style="margin-top:10px" id="homeMaps"></div></dd></div>
+      <div><dt data-t="stationLabel"></dt><dd data-t="stations"></dd></div>
+      <div><dt data-t="parkLabel"></dt><dd data-t="park"></dd></div>
+    </dl>
+    <a class="cta ghost" href="guide/#route" id="routeLink" data-t="routeCta"></a>
+  </section>
+</main>
+<footer class="wrap">
+  <img src="photos/logo.png" alt="">
+  <div data-t="foot"></div>
+  <div>&copy; 2026 DAOL STAY</div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const CONFIG = {
+ checkin:"15:00",   // TODO: 실제 시간 확인
+ checkout:"11:00",  // TODO: 실제 시간 확인
+ rating:"4.98", reviews:80
+};
+
+const HOME = {lat:37.4897533, lng:127.0109276, q:"서울 서초구 반포대로22길 38"};
+
+// 빈 문자열인 채널은 버튼이 표시되지 않아요.
+const BOOK = {
+ airbnb:"https://www.airbnb.co.kr/rooms/979425845780379545",
+ booking:"",
+ naver:""
+};
+
+const UI = {
+ ko:{nav:["소개","집 구조","예약","방명록","동네","오시는 길"],
+  tagline:"하는 일마다, 좋은 일이 오기를",taglineSub:"서초동 골목 안, 우리 일행만 쓰는 두 층짜리 집",
+  poem:"낯선 도시를 하루 종일 걷고 돌아와 불을 켜는 저녁,\n리넨 위로 내려앉는 부드러운 빛.\n다올에서 쉬는 동안, 좋은 일이 하나씩 찾아오기를.",
+  glossDa:"하는 일마다",glossOl:"복이 온다",
+  story1:"‘다올’은 하는 일마다 복이 온다는 뜻을 담은 이름이에요. 서울에서 보내는 하루하루가 좋은 일로 채워지길 바라는 마음으로 지었어요.",
+  story2:"3층과 4층을 계단으로 잇는 집 전체를 한 팀만 사용해요. 밝은 원목과 리넨으로 꾸민 방 세 개, 여럿이 둘러앉는 거실과 주방이 있어 가족이나 친구들과 머물기 좋아요. 서초역과 교대역이 걸어서 6~7분이라 강남, 고속터미널 어디로든 금방이에요.",
+  houseTitle:"한 집, 두 층",houseLead:"3층에는 거실과 주방, 첫 번째 침실과 욕실 두 개가 있고, 계단을 오르면 4층에 침실 두 개가 있어요.",
+  planHint:"평면도에서 공간을 누르면 사진으로 이동해요.",
+  fl3:"3층",fl4:"4층",pLiving:"거실",pKitchen:"주방",pBath:"욕실",pStairs:"계단",pRoom:n=>`침실 ${n}`,pQueen:"퀸",pSingle:"싱글 2",
+  facts:[["6","최대 인원"],["3","침실"],["5","침대"],["2","욕실"]],
+  livingName:"거실·주방",livingTag:"긴 원목 테이블에 둘러앉아 오늘 하루를 나누는 곳",
+  livingDetail:"6인 식탁과 소파베드가 있는 거실에 주방이 이어져 있어요. 가스레인지, 전자레인지, 전기밥솥, 정수기를 갖췄고, 50인치 TV로 넷플릭스와 유튜브를 볼 수 있어요.",
+  room1Name:"침실 1",room1Tag:"스탠드 불빛 아래, 하루를 내려놓는 방",
+  room1Detail:"퀸사이즈 침대와 암막 커튼, 개별 에어컨이 있어요. 욕실이 바로 옆이라 편해요.",
+  room2Name:"침실 2",room2Tag:"경사진 나무 천장 아래 나란히 놓인 두 침대",
+  room2Detail:"싱글 침대 2개가 있는 다락 같은 방이에요. 아이들이나 친구끼리 쓰기 좋아요.",
+  room3Name:"침실 3",room3Tag:"작은 창으로 아침 빛이 드는 아늑한 방",
+  room3Detail:"퀸사이즈 침대와 협탁, 행거가 있어요. 4층 안쪽에 있어요.",
+  bathName:"욕실·세탁",bathTag:"두 개의 욕실, 그리고 언제든 쓰는 세탁기와 건조기",
+  bathDetail:"샴푸, 바디워시, 컨디셔너와 1인 2장의 수건, 칫솔·치약을 준비해 둬요. 세탁기와 건조기는 무료로 쓸 수 있어요.",
+  stayTitle:"머무는 방법",stayLead:"집 전체를 한 팀이 사용해요. 아래에서 날짜를 확인하고 예약할 수 있어요.",
+  ratingText:n=>`게스트 후기 ${n}개<br>에어비앤비 슈퍼호스트`,
+  perks:[["체크인 전 짐 보관","일찍 도착해도 짐을 맡기고 가볍게 다녀오세요."],["셀프 체크인","도어락 비밀번호로 편하게 들어와요."],["공항 밴·택시 호출","필요하면 대신 불러 드려요."],["각 방 에어컨","에어컨 5대, 무료 Wi-Fi와 넷플릭스."],["1층 카페","숙소 건물 1층에 바리스타 카페가 있어요."],["주변 편의시설","다이소, 올리브영, 편의점이 걸어서 몇 분."]],
+  bookAirbnb:"에어비앤비에서 예약하기",bookNaver:"네이버 예약",
+  lettersTitle:"다녀간 분들이 남긴 편지",lettersLead:"머물다 간 손님들이 방명록에 남겨 준 그림과 편지예요. 하나하나 소중히 모아 두고 있어요.",
+  aroundTitle:"걸어서 닿는 곳",aroundLead:"숙소 바로 앞에 편의점과 마트가 있고, 교대역 쪽으로 걸으면 밥집이 이어져요. 도보 시간 순서로 정리한 동네 가이드를 준비했어요.",
+  aroundCta:"동네·이용 가이드 보기 →",minU:"분",
+  locTitle:"오시는 길",checkin:"체크인",checkout:"체크아웃",addrLabel:"주소",addr:"서울 서초구 반포대로22길 38, 301호",
+  copy:"주소 복사",copied:"주소를 복사했어요",
+  stationLabel:"가까운 역",stations:"서초역 (2호선) 1번 출구 도보 약 6분<br>교대역 (2·3호선) 13번 출구 도보 약 7분",
+  parkLabel:"주차",park:"건물 안에는 주차할 수 없어요. 도보 5분 거리에 유료 주차장이 있으니 필요하면 미리 문의해 주세요.",
+  routeCta:"사진으로 보는 길 안내 →",
+  naverMap:"네이버 지도",googleMap:"Google 지도",
+  foot:"다올스테이 · 서울 서초구 서초동"},
+ en:{nav:["About","The house","Book","Guestbook","Nearby","Getting here"],
+  tagline:"May good things come your way",taglineSub:"A two-floor home in a quiet Seocho lane, just for your group",
+  poem:"Coming home in the evening after a long day in a new city,\nsoft light settling on linen.\nWhile you rest at Daol, may good things find you one by one.",
+  glossDa:"in everything you do",glossOl:"good fortune comes",
+  story1:"“Daol” is a Korean name that means good fortune comes in everything you do. We chose it hoping every day you spend in Seoul is filled with good things.",
+  story2:"The whole home, two floors joined by a staircase, is for one group only. Three bedrooms in light wood and linen, plus a living room and kitchen to gather in, make it easy to stay with family or friends. Seocho and Gyodae stations are a 6–7 minute walk, so Gangnam and the Express Bus Terminal are close.",
+  houseTitle:"One home, two floors",houseLead:"The 3rd floor has the living room, kitchen, the first bedroom and two bathrooms. Upstairs on the 4th floor are two more bedrooms.",
+  planHint:"Tap a space on the plan to see photos.",
+  fl3:"3F",fl4:"4F",pLiving:"Living",pKitchen:"Kitchen",pBath:"Bath",pStairs:"Stairs",pRoom:n=>`Room ${n}`,pQueen:"Queen",pSingle:"2 Single",
+  facts:[["6","Guests"],["3","Bedrooms"],["5","Beds"],["2","Baths"]],
+  livingName:"Living & kitchen",livingTag:"Gather around the long wooden table and share the day",
+  livingDetail:"A living room with a six-seat table and sofa bed opens onto the kitchen, which has a gas stove, microwave, rice cooker and water purifier. Watch Netflix or YouTube on the 50-inch TV.",
+  room1Name:"Room 1",room1Tag:"Set the day down under a soft lamp",
+  room1Detail:"Queen bed, blackout curtains and its own air conditioner. A bathroom is right next door.",
+  room2Name:"Room 2",room2Tag:"Two beds side by side under a sloping wooden ceiling",
+  room2Detail:"An attic-like room with two single beds, good for kids or friends.",
+  room3Name:"Room 3",room3Tag:"A snug room where morning light comes through a small window",
+  room3Detail:"Queen bed, bedside table and clothes rack, tucked in the back of the 4th floor.",
+  bathName:"Baths & laundry",bathTag:"Two bathrooms, and a washer and dryer whenever you need them",
+  bathDetail:"Shampoo, body wash, conditioner, two towels per guest and toothbrush kits are provided. The washer and dryer are free to use.",
+  stayTitle:"Staying with us",stayLead:"The entire home is for one group. Check dates and book below.",
+  ratingText:n=>`${n} guest reviews<br>Airbnb Superhost`,
+  perks:[["Luggage storage","Arrive early, drop your bags and head out light."],["Self check-in","Let yourself in with the door code."],["Airport van or taxi","We can call one for you."],["A/C in every room","Five air conditioners, free Wi-Fi and Netflix."],["Café downstairs","A barista café on the building’s ground floor."],["Shops nearby","Daiso, Olive Young and convenience stores minutes away."]],
+  bookAirbnb:"Book on Airbnb",bookNaver:"Naver Booking",
+  lettersTitle:"Letters from our guests",lettersLead:"Drawings and notes guests left in our guestbook. We keep every one.",
+  aroundTitle:"Within walking distance",aroundLead:"There’s a convenience store and grocery right outside, and restaurants line the way toward Gyodae Station. Our guide lists them by walking time.",
+  aroundCta:"Open the neighborhood & house guide →",minU:"min",
+  locTitle:"Getting here",checkin:"Check-in",checkout:"Check-out",addrLabel:"Address",addr:"#301, 38 Banpo-daero 22-gil, Seocho-gu, Seoul",
+  copy:"Copy address",copied:"Address copied",
+  stationLabel:"Nearest stations",stations:"Seocho Stn (Line 2) Exit 1, about 6 min walk<br>Seoul Nat’l Univ. of Education (Gyodae) Stn (Line 2, 3) Exit 13, about 7 min walk",
+  parkLabel:"Parking",park:"No parking in the building. There’s a paid lot about 5 minutes’ walk away; ask us ahead if you need it.",
+  routeCta:"Step-by-step directions with photos →",
+  naverMap:"Naver Map",googleMap:"Google Maps",
+  foot:"DAOL STAY · Seocho-dong, Seocho-gu, Seoul"},
+ zh:{nav:["简介","房屋结构","预订","留言簿","周边","交通"],
+  tagline:"愿你事事顺意，好运常来",taglineSub:"瑞草洞小巷里，只属于你们一行人的两层小楼",
+  poem:"在陌生的城市走了一整天，傍晚回家点亮灯，\n柔和的光落在亚麻布上。\n在Daol休息的日子里，愿好事一件件到来。",
+  glossDa:"所做之事",glossOl:"福气将至",
+  story1:"“Daol（다올）”这个名字寓意“所做之事，福气将至”。我们希望你在首尔的每一天都充满好事。",
+  story2:"由楼梯相连的3层和4层整栋房屋只接待一组客人。三间以浅色原木和亚麻布置的卧室，加上可以围坐的客厅和厨房，适合家人或朋友同住。步行6~7分钟即到瑞草站和教大站，去江南、高速巴士客运站都很方便。",
+  houseTitle:"一个家，两层楼",houseLead:"3层有客厅、厨房、第一间卧室和两间浴室，沿楼梯上到4层还有两间卧室。",
+  planHint:"点击平面图上的空间即可查看照片。",
+  fl3:"3层",fl4:"4层",pLiving:"客厅",pKitchen:"厨房",pBath:"浴室",pStairs:"楼梯",pRoom:n=>`卧室${n}`,pQueen:"大床",pSingle:"单人床×2",
+  facts:[["6","最多入住"],["3","卧室"],["5","床"],["2","浴室"]],
+  livingName:"客厅与厨房",livingTag:"围坐在长长的原木餐桌旁，分享今天的故事",
+  livingDetail:"设有6人餐桌和沙发床的客厅与厨房相连。厨房配有燃气灶、微波炉、电饭锅和净水器，还可用50英寸电视观看Netflix和YouTube。",
+  room1Name:"卧室1",room1Tag:"在台灯的微光下，放下一天的疲惫",
+  room1Detail:"配有大床、遮光窗帘和独立空调，浴室就在隔壁。",
+  room2Name:"卧室2",room2Tag:"倾斜的木质屋顶下，两张并排的床",
+  room2Detail:"带有两张单人床的阁楼风房间，适合孩子或朋友同住。",
+  room3Name:"卧室3",room3Tag:"晨光从小窗洒进的温馨房间",
+  room3Detail:"配有大床、床头柜和衣架，位于4层里侧。",
+  bathName:"浴室与洗衣",bathTag:"两间浴室，洗衣机和烘干机随时可用",
+  bathDetail:"提供洗发水、沐浴露、护发素、每人两条毛巾及牙刷牙膏。洗衣机和烘干机可免费使用。",
+  stayTitle:"入住方式",stayLead:"整栋房屋仅供一组客人使用。可在下方查看日期并预订。",
+  ratingText:n=>`${n}条住客评价<br>爱彼迎超赞房东`,
+  perks:[["入住前寄存行李","提前到达也可先寄存行李，轻装出门。"],["自助入住","输入门锁密码即可入住。"],["代叫机场专车·出租车","如有需要，我们可代为叫车。"],["每间都有空调","共5台空调，免费Wi-Fi和Netflix。"],["楼下咖啡馆","建筑1层有一家咖啡馆。"],["周边便利","大创、Olive Young和便利店步行几分钟即到。"]],
+  bookAirbnb:"在爱彼迎预订",bookNaver:"Naver 预订",
+  lettersTitle:"住客留下的信",lettersLead:"住过的客人在留言簿里留下的画和信，我们都珍藏着。",
+  aroundTitle:"步行可达",aroundLead:"门口就有便利店和超市，往教大站方向走还有一排餐厅。我们按步行时间整理了一份周边指南。",
+  aroundCta:"查看周边与入住指南 →",minU:"分",
+  locTitle:"交通指南",checkin:"入住",checkout:"退房",addrLabel:"地址",addr:"首尔市瑞草区 Banpo-daero 22-gil 38，301号",
+  copy:"复制地址",copied:"地址已复制",
+  stationLabel:"最近地铁站",stations:"瑞草站（2号线）1号出口 步行约6分钟<br>教大站（2·3号线）13号出口 步行约7分钟",
+  parkLabel:"停车",park:"楼内无法停车。步行约5分钟处有收费停车场，如有需要请提前联系。",
+  routeCta:"查看图文路线指南 →",
+  naverMap:"Naver 地图",googleMap:"Google 地图",
+  foot:"DAOL STAY · 首尔瑞草区瑞草洞"},
+ ja:{nav:["紹介","間取り","予約","ゲストブック","周辺","アクセス"],
+  tagline:"することすべてに、いいことが訪れますように",taglineSub:"瑞草洞の路地にある、あなたたちだけの2フロアの家",
+  poem:"知らない街を一日じゅう歩いて、灯りをともす夕暮れ。\nリネンの上にやわらかな光が降りてきます。\nダオルで休むあいだに、いいことがひとつずつ訪れますように。",
+  glossDa:"することすべてに",glossOl:"福が来る",
+  story1:"「ダオル（다올）」は、することすべてに福が来る、という願いを込めた名前です。ソウルで過ごす毎日が、いいことで満たされますように。",
+  story2:"階段でつながる3階と4階の家全体を、1組だけでお使いいただけます。明るい木とリネンでしつらえた寝室が3つ、みんなで囲めるリビングとキッチンがあり、家族や友人との滞在にぴったり。瑞草駅と教大駅まで徒歩6〜7分で、江南や高速ターミナルへもすぐです。",
+  houseTitle:"ひとつの家、ふたつのフロア",houseLead:"3階にはリビングとキッチン、1つ目の寝室とバスルームが2つ。階段を上がった4階に寝室が2つあります。",
+  planHint:"間取り図の部屋をタップすると写真へ移動します。",
+  fl3:"3階",fl4:"4階",pLiving:"リビング",pKitchen:"キッチン",pBath:"浴室",pStairs:"階段",pRoom:n=>`寝室${n}`,pQueen:"クイーン",pSingle:"シングル2",
+  facts:[["6","最大人数"],["3","寝室"],["5","ベッド"],["2","バス"]],
+  livingName:"リビング・キッチン",livingTag:"長い木のテーブルを囲んで、今日のことを語り合う場所",
+  livingDetail:"6人掛けのテーブルとソファベッドのあるリビングに、キッチンがつながっています。ガスコンロ、電子レンジ、炊飯器、浄水器を備え、50インチのTVでNetflixやYouTubeも観られます。",
+  room1Name:"寝室1",room1Tag:"スタンドの灯りの下で、一日をおろす部屋",
+  room1Detail:"クイーンベッド、遮光カーテン、個別エアコン付き。バスルームはすぐ隣です。",
+  room2Name:"寝室2",room2Tag:"傾斜した木の天井の下に並ぶ、ふたつのベッド",
+  room2Detail:"シングルベッド2台の屋根裏のような部屋。お子さまや友人同士におすすめです。",
+  room3Name:"寝室3",room3Tag:"小さな窓から朝の光が差し込む、こぢんまりした部屋",
+  room3Detail:"クイーンベッド、サイドテーブル、ハンガーラック付き。4階の奥にあります。",
+  bathName:"バス・ランドリー",bathTag:"バスルームが2つ、洗濯機と乾燥機はいつでも",
+  bathDetail:"シャンプー、ボディソープ、コンディショナー、おひとり2枚のタオル、歯ブラシセットをご用意しています。洗濯機と乾燥機は無料です。",
+  stayTitle:"ご滞在について",stayLead:"家全体を1組でお使いいただけます。下から日程を確認してご予約ください。",
+  ratingText:n=>`ゲストレビュー${n}件<br>Airbnbスーパーホスト`,
+  perks:[["チェックイン前の荷物預かり","早く着いても荷物を置いて身軽にお出かけを。"],["セルフチェックイン","ドアロックの暗証番号で入れます。"],["空港バン・タクシー手配","必要なら代わりにお呼びします。"],["全室エアコン","エアコン5台、無料Wi-FiとNetflix。"],["1階にカフェ","建物の1階にバリスタのいるカフェがあります。"],["便利な周辺","ダイソー、オリーブヤング、コンビニまで徒歩数分。"]],
+  bookAirbnb:"Airbnbで予約する",bookNaver:"Naver予約",
+  lettersTitle:"ゲストが残してくれた手紙",lettersLead:"泊まってくださった方がゲストブックに残してくれた絵と手紙です。ひとつひとつ大切にしています。",
+  aroundTitle:"歩いて行けるところ",aroundLead:"すぐ前にコンビニとスーパー、教大駅のほうへ歩けば食堂が続きます。徒歩時間順にまとめた周辺ガイドをご用意しました。",
+  aroundCta:"周辺・ご利用ガイドを見る →",minU:"分",
+  locTitle:"アクセス",checkin:"チェックイン",checkout:"チェックアウト",addrLabel:"住所",addr:"ソウル市瑞草区 Banpo-daero 22-gil 38, 301号",
+  copy:"住所をコピー",copied:"住所をコピーしました",
+  stationLabel:"最寄り駅",stations:"瑞草駅（2号線）1番出口 徒歩約6分<br>教大駅（2・3号線）13番出口 徒歩約7分",
+  parkLabel:"駐車場",park:"建物内には駐車できません。徒歩5分ほどのところに有料駐車場があります。必要な場合は事前にご相談ください。",
+  routeCta:"写真で見る道案内 →",
+  naverMap:"Naver Map",googleMap:"Google マップ",
+  foot:"DAOL STAY · ソウル瑞草区瑞草洞"}
+};
+
+const GALLERY = [
+ {k:"living_b",c:{ko:"거실",en:"Living room",zh:"客厅",ja:"リビング"}},
+ {k:"dining",c:{ko:"창가 티 테이블",en:"Tea table by the window",zh:"窗边茶桌",ja:"窓辺のティーテーブル"}},
+ {k:"kitchen_a",c:{ko:"주방",en:"Kitchen",zh:"厨房",ja:"キッチン"}},
+ {k:"room1_a",c:{ko:"침실 1",en:"Room 1",zh:"卧室1",ja:"寝室1"}},
+ {k:"room2_a",c:{ko:"침실 2",en:"Room 2",zh:"卧室2",ja:"寝室2"}},
+ {k:"stairs",c:{ko:"4층으로 오르는 계단",en:"Stairs up to the 4th floor",zh:"通往4层的楼梯",ja:"4階への階段"}},
+ {k:"detail_vase",c:{ko:"창가의 작은 풍경",en:"A quiet corner by the window",zh:"窗边一角",ja:"窓辺のひとこま"}},
+ {k:"entrance_night",c:{ko:"저녁의 입구",en:"The entrance at dusk",zh:"傍晚的入口",ja:"夕暮れの入口"}}
+];
+
+const SPACES = [
+ {key:"living",floor:3,imgs:["living_a","living_d","kitchen_b","dining"]},
+ {key:"room1",floor:3,imgs:["room1_a","room1_b","room1_c"]},
+ {key:"room2",floor:4,imgs:["room2_a","room2_b","room2_window","room2_ladder"]},
+ {key:"room3",floor:4,imgs:["room3_a","room3_b"]},
+ {key:"bath",floor:3,imgs:["bath_a","bath_b","amenity","laundry"]}
+];
+
+const LETTERS = ["letters_1","letters_2","letters_3","letters_4"];
+
+// 도보 시간은 지도상 거리로 계산한 대략적인 값 (guide/ 페이지와 같은 기준)
+const NEAR = [
+ {min:2,name:{ko:"세븐일레븐",en:"7-Eleven",zh:"7-Eleven",ja:"セブンイレブン"},kind:{ko:"편의점 · 24시간",en:"Convenience store · 24h",zh:"便利店 · 24小时",ja:"コンビニ · 24時間"}},
+ {min:3,name:{ko:"롯데프레시",en:"Lotte Fresh",zh:"乐天Fresh超市",ja:"ロッテフレッシュ"},kind:{ko:"마트",en:"Grocery",zh:"超市",ja:"スーパー"}},
+ {min:4,name:{ko:"3대 삼계장인",en:"3dae Samgye Jangin",zh:"三代参鸡匠人",ja:"3代参鶏匠人"},kind:{ko:"삼계탕",en:"Ginseng chicken soup",zh:"参鸡汤",ja:"参鶏湯"}},
+ {min:5,name:{ko:"솔솥",en:"Solsot",zh:"Solsot",ja:"ソルソッ"},kind:{ko:"솥밥",en:"Pot rice",zh:"石锅饭",ja:"釜飯"}},
+ {min:6,name:{ko:"교대이층집",en:"Gyodae Ichungjip",zh:"教大二层家",ja:"教大イチュンジプ"},kind:{ko:"삼겹살",en:"Pork belly BBQ",zh:"烤五花肉",ja:"サムギョプサル"}},
+ {min:15,name:{ko:"서관면옥",en:"Seogwan Myeonok",zh:"西馆面屋",ja:"西館麺屋"},kind:{ko:"냉면",en:"Cold noodles",zh:"冷面",ja:"冷麺"}}
+];
+
+const SECTIONS = ["about","house","stay","letters","around","location"];
+let lang = "ko";
+try{ const s = localStorage.getItem("daol-lang"); if(s && UI[s]) lang = s; }catch(e){}
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function planSVG(t){
+  const cell = (id,x,y,w,h,label,sub,bed) => `<a href="#sp-${id}" aria-label="${esc(label)}">
+    <rect class="cell${bed?" bed":""}" x="${x}" y="${y}" width="${w}" height="${h}"/>
+    <text x="${x+w/2}" y="${y+h/2-(sub?2:-4)}">${esc(label)}</text>${sub?`<text class="s" x="${x+w/2}" y="${y+h/2+12}">${esc(sub)}</text>`:""}</a>`;
+  const stairs = (x,y,w,h) => { let s=""; for(let i=1;i<6;i++) s+=`<line class="stairs" x1="${x+w*i/6}" y1="${y+4}" x2="${x+w*i/6}" y2="${y+h-4}"/>`; return s; };
+  return `<svg viewBox="0 0 340 236" role="img" aria-label="${esc(t.houseTitle)}">
+    <text class="fl" x="6" y="58">4F</text>
+    <rect class="cell" x="120" y="22" width="46" height="78"/>${stairs(120,22,46,78)}
+    <text class="s" x="143" y="112">${esc(t.pStairs)}</text>
+    ${cell("room2",166,22,96,78,t.pRoom(2),t.pSingle,true)}
+    ${cell("room3",262,22,72,78,t.pRoom(3),t.pQueen,true)}
+    <rect class="wall" x="120" y="22" width="214" height="78"/>
+    <text class="fl" x="6" y="124">3F</text>
+    ${cell("bath",6,132,34,90,t.pBath,"",false)}
+    ${cell("room1",40,132,80,90,t.pRoom(1),t.pQueen,true)}
+    <rect class="cell" x="120" y="132" width="46" height="90"/>${stairs(120,132,46,90)}
+    ${cell("living",166,132,46,90,t.pKitchen,"",false)}
+    ${cell("bath",212,132,34,52,t.pBath,"",false)}
+    ${cell("living",246,132,88,90,t.pLiving,"",false)}
+    <rect class="wall" x="6" y="132" width="328" height="90"/>
+  </svg>`;
+}
+
+function spaceHTML(s, t){
+  const name = t[s.key+"Name"];
+  return `<article class="space" id="sp-${s.key}">
+    <div class="shots">${s.imgs.map((k,i)=>`<img src="photos/${k}.jpg" alt="${esc(name)} ${i+1}" loading="lazy">`).join("")}</div>
+    <div class="count">${s.imgs.length>1?`← ${s.imgs.length} →`:""}</div>
+    <div class="space-body">
+      <div class="space-head"><h3>${esc(name)}</h3><span>${esc(t["fl"+s.floor])}</span></div>
+      <p class="tagline">${esc(t[s.key+"Tag"])}</p>
+      <p class="detail">${esc(t[s.key+"Detail"])}</p>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const t = UI[lang];
+  document.documentElement.lang = lang==="zh" ? "zh-Hans" : lang;
+  document.querySelectorAll("[data-t]").forEach(el=>{
+    const v = t[el.dataset.t];
+    if(typeof v !== "string") return;
+    if(el.dataset.t==="stations" || el.dataset.t==="poem") el.innerHTML = esc(v).replace(/\n/g,"<br>").replace(/&lt;br&gt;/g,"<br>");
+    else el.textContent = v;
+  });
+  document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===lang));
+  $("#nav").innerHTML = SECTIONS.map((id,i)=>`<a href="#${id}" data-sec="${id}">${esc(t.nav[i])}</a>`).join("");
+
+  $("#gallery").innerHTML = GALLERY.map(g=>`<figure><img src="photos/${g.k}.jpg" alt="${esc(g.c[lang])}" loading="lazy"><figcaption>${esc(g.c[lang])}</figcaption></figure>`).join("");
+
+  $("#plan").innerHTML = planSVG(t);
+  $("#facts").innerHTML = t.facts.map(f=>`<div><b>${f[0]}</b><span>${esc(f[1])}</span></div>`).join("");
+  $("#spaceList").innerHTML = SPACES.map(s=>spaceHTML(s,t)).join("");
+
+  $("#rating").innerHTML = `<div class="score"><small>★</small> ${CONFIG.rating}</div><div>${t.ratingText(CONFIG.reviews)}</div>`;
+  $("#perks").innerHTML = t.perks.map(p=>`<li><b>${esc(p[0])}</b>${esc(p[1])}</li>`).join("");
+  const links = [];
+  if(BOOK.airbnb) links.push(`<a class="main" href="${BOOK.airbnb}" target="_blank" rel="noopener">${esc(t.bookAirbnb)}</a>`);
+  if(BOOK.booking) links.push(`<a href="${BOOK.booking}" target="_blank" rel="noopener">Booking.com</a>`);
+  if(BOOK.naver) links.push(`<a href="${BOOK.naver}" target="_blank" rel="noopener">${esc(t.bookNaver)}</a>`);
+  $("#book").innerHTML = links.join("");
+
+  $("#letterStrip").innerHTML = LETTERS.map(k=>`<figure><img src="photos/${k}.jpg" alt="" loading="lazy"></figure>`).join("");
+
+  const hash = lang==="ko" ? "" : "#"+lang;
+  $("#near").innerHTML = NEAR.map(p=>`<li><span class="m">${p.min}<small>${esc(t.minU)}</small></span><span>${esc(p.name[lang])}</span><span class="k">${esc(p.kind[lang])}</span></li>`).join("");
+  $("#guideLink").href = "guide/" + hash;
+
+  $("#cin").textContent = CONFIG.checkin;
+  $("#cout").textContent = CONFIG.checkout;
+  const naver = "https://map.naver.com/p/search/" + encodeURIComponent(HOME.q);
+  const google = "https://www.google.com/maps/search/?api=1&query=" + HOME.lat + "," + HOME.lng;
+  $("#homeMaps").innerHTML = `<a href="${naver}" target="_blank" rel="noopener">${esc(t.naverMap)}</a><a href="${google}" target="_blank" rel="noopener">${esc(t.googleMap)}</a>`;
+  observe();
+}
+
+document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>{
+  lang = b.dataset.lang;
+  try{ localStorage.setItem("daol-lang", lang); }catch(e){}
+  render();
+}));
+
+$("#copyBtn").addEventListener("click", async ()=>{
+  const text = HOME.q;
+  let ok = false;
+  try{ await navigator.clipboard.writeText(text); ok = true; }catch(e){
+    try{ const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select(); ok=document.execCommand("copy"); ta.remove(); }catch(_){}
+  }
+  const toast = $("#toast"); toast.textContent = ok ? UI[lang].copied : text;
+  toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"), 1800);
+});
+
+let io;
+function observe(){
+  if(io) io.disconnect();
+  if(!("IntersectionObserver" in window)) return;
+  io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll("#nav a").forEach(a=>{
+          const on = a.dataset.sec===e.target.id; a.classList.toggle("on",on);
+          if(on){ const n=$("#nav"); n.scrollLeft = a.offsetLeft - 20; }
+        });
+      }
+    });
+  },{rootMargin:"-40% 0px -55% 0px"});
+  SECTIONS.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
+}
+
+// language from link: #en, #zh, #ja, #ko
+const h = (location.hash||"").slice(1);
+if(UI[h]){ lang = h; try{ localStorage.setItem("daol-lang", lang); }catch(e){} }
+render();
+</script>
+</body>
+</html>
