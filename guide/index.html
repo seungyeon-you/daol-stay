@@ -156,6 +156,7 @@
 
 <script>
 const HOME = {lat:37.4897533, lng:127.0109276, q:"서울 서초구 반포대로22길 38"};
+const NAVER_PLACE = "https://map.naver.com/p/entry/place/1524587564";
 const HOST_TEL = "+821088890142", HOST_TEL_LABEL = "010-8889-0142";
 
 const UI = {
@@ -456,7 +457,7 @@ function render(){
   $("#calls").innerHTML = CALLS.map(c=>`<li><a href="tel:${c.n}">${c.n}</a><span>${esc(c.t[lang])}${c.s?`<small>${esc(c.s[lang])}</small>`:""}</span></li>`).join("")
     + `<li><a href="tel:${HOST_TEL}" style="font-size:17px">${HOST_TEL_LABEL}</a><span>${esc(t.hostCall)}<small>${esc(t.hostNote)}</small></span></li>`;
 
-  $("#homeMaps").innerHTML = mapLinks({q:HOME.q,map:"https://www.google.com/maps/search/?api=1&query="+HOME.lat+","+HOME.lng},t);
+  $("#homeMaps").innerHTML = `<a href="${NAVER_PLACE}" target="_blank" rel="noopener">${t.naver}</a><a href="https://www.google.com/maps/search/?api=1&query=${HOME.lat},${HOME.lng}" target="_blank" rel="noopener">${t.google}</a>`;
   observe();
 }
 
