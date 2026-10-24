@@ -148,7 +148,7 @@
     <h2 data-t="aroundTitle"></h2>
     <p class="lead" data-t="aroundLead"></p>
     <ul class="near" id="near"></ul>
-    <a class="cta" href="guide/" id="guideLink" data-t="aroundCta"></a>
+    <a class="cta" href="neighborhood/" id="guideLink" data-t="aroundCta"></a>
   </section>
 
   <section id="location">
@@ -163,7 +163,7 @@
       <div><dt data-t="stationLabel"></dt><dd data-t="stations"></dd></div>
       <div><dt data-t="parkLabel"></dt><dd data-t="park"></dd></div>
     </dl>
-    <a class="cta ghost" href="guide/#route" id="routeLink" data-t="routeCta"></a>
+    <a class="cta ghost" href="neighborhood/#route" id="routeLink" data-t="routeCta"></a>
   </section>
 </main>
 <footer class="wrap">
@@ -216,7 +216,7 @@ const UI = {
   bookAirbnb:"에어비앤비에서 예약하기",bookNaver:"네이버",
   lettersTitle:"다녀간 분들이 남긴 편지",lettersLead:"머물다 간 손님들이 방명록에 남겨 준 그림과 편지예요. 하나하나 소중히 모아 두고 있어요.",
   aroundTitle:"걸어서 닿는 곳",aroundLead:"숙소 바로 앞에 편의점과 마트가 있고, 교대역 쪽으로 걸으면 밥집이 이어져요. 도보 시간 순서로 정리한 동네 가이드를 준비했어요.",
-  aroundCta:"동네·이용 가이드 보기 →",minU:"분",
+  aroundCta:"동네 가이드 보기 →",minU:"분",
   locTitle:"오시는 길",checkin:"체크인",checkout:"체크아웃",addrLabel:"주소",addr:"서울 서초구 반포대로22길 38, 301호",
   copy:"주소 복사",copied:"주소를 복사했어요",
   stationLabel:"가까운 역",stations:"서초역 (2호선) 1번 출구 도보 약 6분<br>교대역 (2·3호선) 13번 출구 도보 약 7분",
@@ -250,7 +250,7 @@ const UI = {
   bookAirbnb:"Book on Airbnb",bookNaver:"Naver",
   lettersTitle:"Letters from our guests",lettersLead:"Drawings and notes guests left in our guestbook. We keep every one.",
   aroundTitle:"Within walking distance",aroundLead:"There’s a convenience store and grocery right outside, and restaurants line the way toward Gyodae Station. Our guide lists them by walking time.",
-  aroundCta:"Open the neighborhood & house guide →",minU:"min",
+  aroundCta:"Open the neighborhood guide →",minU:"min",
   locTitle:"Getting here",checkin:"Check-in",checkout:"Check-out",addrLabel:"Address",addr:"#301, 38 Banpo-daero 22-gil, Seocho-gu, Seoul",
   copy:"Copy address",copied:"Address copied",
   stationLabel:"Nearest stations",stations:"Seocho Stn (Line 2) Exit 1, about 6 min walk<br>Seoul Nat’l Univ. of Education (Gyodae) Stn (Line 2, 3) Exit 13, about 7 min walk",
@@ -284,7 +284,7 @@ const UI = {
   bookAirbnb:"在爱彼迎预订",bookNaver:"Naver",
   lettersTitle:"住客留下的信",lettersLead:"住过的客人在留言簿里留下的画和信，我们都珍藏着。",
   aroundTitle:"步行可达",aroundLead:"门口就有便利店和超市，往教大站方向走还有一排餐厅。我们按步行时间整理了一份周边指南。",
-  aroundCta:"查看周边与入住指南 →",minU:"分",
+  aroundCta:"查看周边指南 →",minU:"分",
   locTitle:"交通指南",checkin:"入住",checkout:"退房",addrLabel:"地址",addr:"首尔市瑞草区 Banpo-daero 22-gil 38，301号",
   copy:"复制地址",copied:"地址已复制",
   stationLabel:"最近地铁站",stations:"瑞草站（2号线）1号出口 步行约6分钟<br>教大站（2·3号线）13号出口 步行约7分钟",
@@ -318,7 +318,7 @@ const UI = {
   bookAirbnb:"Airbnbで予約する",bookNaver:"Naver",
   lettersTitle:"ゲストが残してくれた手紙",lettersLead:"泊まってくださった方がゲストブックに残してくれた絵と手紙です。ひとつひとつ大切にしています。",
   aroundTitle:"歩いて行けるところ",aroundLead:"すぐ前にコンビニとスーパー、教大駅のほうへ歩けば食堂が続きます。徒歩時間順にまとめた周辺ガイドをご用意しました。",
-  aroundCta:"周辺・ご利用ガイドを見る →",minU:"分",
+  aroundCta:"周辺ガイドを見る →",minU:"分",
   locTitle:"アクセス",checkin:"チェックイン",checkout:"チェックアウト",addrLabel:"住所",addr:"ソウル市瑞草区 Banpo-daero 22-gil 38, 301号",
   copy:"住所をコピー",copied:"住所をコピーしました",
   stationLabel:"最寄り駅",stations:"瑞草駅（2号線）1番出口 徒歩約6分<br>教大駅（2・3号線）13番出口 徒歩約7分",
@@ -349,7 +349,7 @@ const SPACES = [
 
 const LETTERS = ["letters_1","letters_2","letters_3","letters_4"];
 
-// 도보 시간은 지도상 거리로 계산한 대략적인 값 (guide/ 페이지와 같은 기준)
+// 도보 시간은 지도상 거리로 계산한 대략적인 값 (neighborhood/ 페이지와 같은 기준)
 const NEAR = [
  {min:2,name:{ko:"세븐일레븐",en:"7-Eleven",zh:"7-Eleven",ja:"セブンイレブン"},kind:{ko:"편의점 · 24시간",en:"Convenience store · 24h",zh:"便利店 · 24小时",ja:"コンビニ · 24時間"}},
  {min:3,name:{ko:"롯데프레시",en:"Lotte Fresh",zh:"乐天Fresh超市",ja:"ロッテフレッシュ"},kind:{ko:"마트",en:"Grocery",zh:"超市",ja:"スーパー"}},
@@ -432,7 +432,7 @@ function render(){
 
   const hash = lang==="ko" ? "" : "#"+lang;
   $("#near").innerHTML = NEAR.map(p=>`<li><span class="m">${p.min}<small>${esc(t.minU)}</small></span><span>${esc(p.name[lang])}</span><span class="k">${esc(p.kind[lang])}</span></li>`).join("");
-  $("#guideLink").href = "guide/" + hash;
+  $("#guideLink").href = "neighborhood/" + hash;
 
   $("#cin").textContent = CONFIG.checkin;
   $("#cout").textContent = CONFIG.checkout;
