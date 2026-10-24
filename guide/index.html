@@ -1,14 +1,527 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-lang="ko">
 <head>
 <meta charset="utf-8">
-<title>동네 가이드 · 다올스테이 DAOL STAY</title>
-<!-- 예전 주소(/guide/)로 들어온 방문자를 /neighborhood/ 로 보냅니다 -->
-<link rel="canonical" href="https://staydaol.com/neighborhood/">
-<meta http-equiv="refresh" content="0; url=../neighborhood/">
-<script>location.replace("../neighborhood/" + location.hash);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>다올스테이 게스트 가이드 · DAOL STAY Guest Guide</title>
+<link rel="icon" href="../photos/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Gowun+Dodum&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+html[data-lang="ko"] .en, html[data-lang="en"] .ko{display:none!important}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{word-break:keep-all;overflow-wrap:anywhere}
+
+/* top bar: transparent over the hero, solid after scrolling */
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top,0px);border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+.bar.solid{background:var(--bg);border-bottom-color:var(--line)}
+.bar-in{max-width:640px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bar .mark span{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.45);transition:color .25s}
+.bar.solid .mark span{color:var(--ink);text-shadow:none}
+.bar .langs{background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.45)}
+.bar .langs button{color:rgba(255,255,255,.85)}
+.bar .langs button[aria-pressed="true"]{background:#fff;color:#2F2B27}
+.bar.solid .langs{background:var(--surface);border-color:var(--line)}
+.bar.solid .langs button{color:var(--ink-soft)}
+.bar.solid .langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* hero */
+.hero{position:relative;height:62svh;min-height:420px;max-height:660px;display:flex;align-items:flex-end;overflow:hidden;background:#2a241f}
+@supports not (height:62svh){.hero{height:62vh}}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,22,18,.45) 0%,rgba(28,22,18,0) 30%),linear-gradient(to top,rgba(28,22,18,.88) 0%,rgba(28,22,18,.6) 35%,rgba(28,22,18,0) 75%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:0 24px 28px;color:#fff}
+.hero .eyebrow{color:rgba(255,255,255,.75)}
+.hero h1{font-size:clamp(28px,7.5vw,36px);line-height:1.35;margin:4px 0 10px;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{margin:0;color:rgba(255,255,255,.85);font-size:15px}
+
+.wrap.body{padding-top:22px;padding-bottom:40px}
+.times{margin:0 0 12px}
+
+/* quick actions */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px}
+@media (max-width:400px){.quick{grid-template-columns:repeat(2,1fr)}}
+.quick a,.quick button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 4px;font-size:13px;line-height:1.3;text-align:center;text-decoration:none;color:var(--ink);cursor:pointer}
+.quick i{font-style:normal;font-size:20px;line-height:1}
+.langnote{background:var(--latte-soft);border-radius:6px;padding:12px 14px;font-size:14px;margin:0 0 14px}
+.card-link{display:flex;align-items:center;gap:14px;padding:14px 16px;margin:0 0 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;text-decoration:none}
+.card-link i{font-style:normal;font-size:22px}
+.card-link span{flex:1;display:flex;flex-direction:column;line-height:1.5}
+.card-link b{font-family:var(--serif)}
+.card-link small{color:var(--ink-soft);font-size:13px}
+.card-link em{font-style:normal;color:var(--ink-soft);font-size:20px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 20px}
+.chips a{padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:13px;text-decoration:none;white-space:nowrap}
+
+/* collapsible sections */
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:6px;margin-bottom:12px;overflow:hidden}
+.sec>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:18px}
+.sec>summary::-webkit-details-marker{display:none}
+.sec>summary::after{content:"⌄";margin-left:auto;color:var(--ink-soft);transform:translateY(-3px);transition:transform .2s}
+.sec[open]>summary::after{transform:translateY(2px) rotate(180deg)}
+.sec[open]>summary{border-bottom:1px solid var(--line)}
+.sec-body{padding:18px}
+.sec-body h3{font-size:16px;margin:26px 0 8px}
+.sec-body h3:first-child{margin-top:0}
+.sec-body p,.sec-body li{font-size:15px}
+.sec-body ul,.sec-body ol{margin:0 0 12px;padding-left:1.25em}
+.sec-body li{margin-bottom:5px}
+.sec-body li::marker{color:var(--latte)}
+.sec .note{margin:0 0 14px}
+.warn{background:#FBF1EA;border:1px solid #EBCDB8;color:#9A4F22;border-radius:6px;padding:12px 14px;font-size:14px;margin:0 0 14px}
+:root[data-theme="dark"] .warn{background:#3A2A20;border-color:#5C4030;color:#F0C2A0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .warn{background:#3A2A20;border-color:#5C4030;color:#F0C2A0}}
+
+.copyrow{display:flex;gap:8px;margin:0 0 10px}
+.copyrow .val{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:15px}
+.copyrow .val small{display:block;font-size:11px;letter-spacing:.08em;color:var(--ink-soft)}
+.copyrow .val b{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:600;letter-spacing:.02em}
+.copyrow button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:0 14px;font-size:13px;cursor:pointer}
+.copyrow button.done,.quick button.done{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.route{border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-bottom:10px}
+.route b{font-family:var(--serif)}
+.route p{margin:2px 0 0;font-size:14px;color:var(--ink-soft)}
+.route .mins{display:inline-block;margin-top:6px;font-size:12px;color:var(--latte);background:var(--latte-soft);border-radius:999px;padding:2px 10px}
+
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}
+.figs.one{grid-template-columns:1fr}
+.sec figure{margin:0}
+.sec figure img{width:100%;border-radius:4px;border:1px solid var(--line);background:#fff;cursor:zoom-in}
+.sec figure.sq img{aspect-ratio:1/1;object-fit:cover}
+.sec figcaption{font-size:12px;color:var(--ink-soft);margin-top:4px}
+.hint{font-size:12px;color:var(--ink-soft);margin:-6px 0 14px}
+
+.qa{border-top:1px solid var(--line);padding:12px 0}
+.qa:first-of-type{border-top:0;padding-top:0}
+.qa b{display:block;font-family:var(--serif);margin-bottom:2px}
+.qa p{margin:0;color:var(--ink-soft)}
+
+.tels{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 14px}
+.tels a{display:flex;flex-direction:column;align-items:center;padding:12px 4px;border:1px solid var(--line);border-radius:6px;text-decoration:none;font-size:13px;text-align:center;line-height:1.4}
+.tels a b{font-family:var(--latin);font-size:26px;font-weight:600;color:var(--latte);line-height:1.1}
+.btn{display:inline-block;padding:11px 18px;border-radius:6px;background:var(--ink);color:var(--bg);text-decoration:none;font-family:var(--serif);font-weight:700}
+
+#lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
+#lightbox.on{display:flex}
+#lightbox img{max-width:100%;max-height:100%;border-radius:4px}
+</style>
+<script>
+(function(){
+  // 가이드 전용 언어(한/영) → 없으면 메인 사이트에서 고른 언어 → 브라우저 언어
+  var l = null, site = null;
+  try{ l = localStorage.getItem("daol-guide-lang"); site = localStorage.getItem("daol-lang"); }catch(e){}
+  var h = (location.hash||"").slice(1);
+  if(h==="ko"||h==="en") l = h;
+  if(l!=="ko" && l!=="en") l = (site || navigator.language || "en").toLowerCase().indexOf("ko")===0 ? "ko" : "en";
+  document.documentElement.setAttribute("data-lang", l);
+  document.documentElement.setAttribute("lang", l);
+})();
+</script>
 </head>
 <body>
-<p><a href="../neighborhood/">다올스테이 동네 가이드로 이동 →</a></p>
+
+<div class="bar" id="bar">
+  <div class="bar-in">
+    <a class="mark" href="#top"><img src="../photos/logo.png" alt=""><span>Daol Stay</span></a>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-setlang="ko">한국어</button><button type="button" data-setlang="en">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <img src="../photos/living_a.jpg" alt="">
+  <div class="hero-in">
+    <p class="eyebrow">Guest Guide</p>
+    <h1><span class="ko">다올스테이에 오신 것을<br>환영합니다</span><span class="en">Welcome to<br>DAOL STAY</span></h1>
+    <p><span class="ko">‘다올’은 하는 일마다 복이 온다는 뜻이에요. 편안하고 기억에 남는 시간이 되도록 필요한 안내를 모았어요.</span><span class="en">DAOL means “good luck follows every endeavor” in Korean. Here’s everything you need for a comfortable, memorable stay.</span></p>
+  </div>
+</header>
+
+<main class="wrap body">
+  <div class="times">
+    <div><span>Check-in</span><b>17:00</b></div>
+    <div><span>Check-out</span><b>12:00</b></div>
+  </div>
+
+  <nav class="quick">
+    <button type="button" data-copy="서울특별시 서초구 반포대로22길 38"><i>📋</i><span class="ko">주소 복사</span><span class="en">Copy address</span></button>
+    <a href="https://map.naver.com/p/entry/place/1524587564" target="_blank" rel="noopener"><i>🗺️</i><span class="ko">지도 열기</span><span class="en">Open map</span></a>
+    <button type="button" data-copy="80cf01hh48"><i>📶</i><span class="ko">Wi-Fi 복사</span><span class="en">Copy Wi-Fi</span></button>
+    <a href="#contact"><i>💬</i><span class="ko">문의하기</span><span class="en">Contact us</span></a>
+  </nav>
+
+  <p class="langnote" id="langNote" hidden></p>
+
+  <a class="card-link" id="nbLink" href="../neighborhood/">
+    <i>🚶</i>
+    <span><b class="ko">동네 가이드</b><b class="en">Neighborhood Guide</b><small class="ko">걸어서 가는 밥집, 마트, 편의점</small><small class="en">Restaurants, groceries and shops on foot</small></span>
+    <em>›</em>
+  </a>
+
+  <nav class="chips">
+    <a href="#directions"><span class="ko">오시는 길</span><span class="en">Directions</span></a>
+    <a href="#wifi">Wi-Fi</a>
+    <a href="#appliances"><span class="ko">가전</span><span class="en">Appliances</span></a>
+    <a href="#waste"><span class="ko">쓰레기</span><span class="en">Waste</span></a>
+    <a href="#amenities"><span class="ko">비품</span><span class="en">Amenities</span></a>
+    <a href="#rules"><span class="ko">이용 규칙</span><span class="en">Rules</span></a>
+    <a href="#emergency"><span class="ko">비상</span><span class="en">Emergency</span></a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <!-- ============ DIRECTIONS ============ -->
+  <details class="sec" id="directions" open>
+    <summary>📍 <span class="ko">오시는 길</span><span class="en">Getting Here</span></summary>
+    <div class="sec-body">
+      <h3><span class="ko">주소</span><span class="en">Address</span></h3>
+      <div class="copyrow">
+        <div class="val"><small class="ko">한국어</small><small class="en">KOREAN</small>서울특별시 서초구 반포대로22길 38 (서초동), 301호</div>
+        <button type="button" data-copy="서울특별시 서초구 반포대로22길 38"><span class="ko">복사</span><span class="en">Copy</span></button>
+      </div>
+      <div class="copyrow">
+        <div class="val"><small>ENGLISH</small>#301, 38 Banpo-daero 22-gil, Seocho-gu, Seoul</div>
+        <button type="button" data-copy="38, Banpo-daero 22-gil, Seocho-gu, Seoul, Republic of Korea"><span class="ko">복사</span><span class="en">Copy</span></button>
+      </div>
+      <div class="pills" style="margin-bottom:6px">
+        <a href="https://map.naver.com/p/entry/place/1524587564" target="_blank" rel="noopener"><span class="ko">네이버 지도</span><span class="en">Naver Map</span></a>
+        <a href="https://www.google.com/maps/search/?api=1&query=37.4897533,127.0109276" target="_blank" rel="noopener"><span class="ko">Google 지도</span><span class="en">Google Maps</span></a>
+      </div>
+
+      <h3><span class="ko">지하철역에서 걸어오기</span><span class="en">Walking from the subway</span></h3>
+      <div class="route">
+        <b><span class="ko">서초역 (2호선) 1번 출구</span><span class="en">Seocho Station (Line 2), Exit 1</span></b>
+        <p><span class="ko">투썸플레이스에서 오른쪽 → 쭉 직진 (오른쪽 이마트24, 왼쪽 롯데마트) → 짧은 오르막 → 회색 건물을 오른쪽에 두고 우회전</span><span class="en">Right at A Twosome Place → straight on (emart24 on your right, Lotte Mart on your left) → short uphill → turn right with the gray building on your right</span></p>
+        <span class="mins"><span class="ko">도보 약 6분</span><span class="en">about 6 min walk</span></span>
+      </div>
+      <div class="route">
+        <b><span class="ko">교대역 (2·3호선) 13번 출구</span><span class="en">Gyodae Station (Line 2, 3), Exit 13</span></b>
+        <p><span class="ko">엘리베이터로 지상 → 초등학교 담장을 왼쪽에 두고 직진 → 오른쪽 횡단보도(올리브영 방향) → CU, 꽃집을 지나 → 삼거리에서 우회전 → 회색 건물을 보며 좌회전</span><span class="en">Elevator up → straight with the school wall on your left → cross at the right-hand crosswalk (toward Olive Young) → past CU and a flower shop → right at the three-way junction → left at the gray building</span></p>
+        <span class="mins"><span class="ko">도보 약 7분</span><span class="en">about 7 min walk</span></span>
+      </div>
+      <div class="pills" style="margin-bottom:6px">
+        <a href="../neighborhood/#route"><span class="ko">사진으로 보는 길 안내 →</span><span class="en">Step-by-step with photos →</span></a>
+      </div>
+      <p class="hint"><span class="ko">빨간 별이 그려진 건물이 다올스테이예요. 짐이 많으면 두 역 모두 엘리베이터를 이용하세요.</span><span class="en">Look for the building marked with a red star. Both stations have elevators if you have heavy luggage.</span></p>
+
+      <h3><span class="ko">건물 안으로 들어오기</span><span class="en">Getting inside</span></h3>
+      <div class="figs">
+        <figure><img src="../photos/route_seocho_10.jpg" alt="" loading="lazy"><figcaption><span class="ko">복도를 따라 로비로</span><span class="en">Follow the corridor to the lobby</span></figcaption></figure>
+        <figure><img src="../photos/route_seocho_11.jpg" alt="" loading="lazy"><figcaption><span class="ko">301호 현관문</span><span class="en">The door of Room 301</span></figcaption></figure>
+      </div>
+      <ol>
+        <li><span class="ko">사진 속 복도를 따라 건물 로비로 들어와요.</span><span class="en">Follow the corridor in the photo to the building lobby.</span></li>
+        <li><span class="ko">로비는 2층부터 시작해요. <b>301호</b>로 올라오세요. 숙소는 3층과 4층을 함께 써요.</span><span class="en">The lobby starts on the 2nd floor. Come up to <b>Room 301</b>; your home spans the 3rd and 4th floors.</span></li>
+        <li><span class="ko">현관 도어락에 비밀번호를 입력하세요.</span><span class="en">Enter the code on the door lock.</span></li>
+      </ol>
+      <div class="warn"><span class="ko">현관 비밀번호는 자주 바뀌어요. <b>Airbnb 또는 Booking.com 메시지</b>에서 확인해 주세요.</span><span class="en">We change the door code frequently. Please check your <b>Airbnb or Booking.com message</b> for it.</span></div>
+      <p class="note"><span class="ko">♥ 체크인하신 뒤에 메시지 한 번 남겨 주세요.</span><span class="en">♥ After you check in, please leave us a message.</span></p>
+
+      <h3><span class="ko">주차</span><span class="en">Parking</span></h3>
+      <p><span class="ko">건물 안에는 주차할 수 없어요. 도보 5분 거리에 유료 주차장이 있으니 필요하면 미리 메시지로 문의해 주세요.</span><span class="en">There’s no parking in the building. A paid lot is about a 5-minute walk away; message us ahead if you need it.</span></p>
+    </div>
+  </details>
+
+  <!-- ============ WIFI ============ -->
+  <details class="sec" id="wifi" open>
+    <summary>📶 Wi-Fi</summary>
+    <div class="sec-body">
+      <div class="copyrow"><div class="val"><small>SSID · 5G</small><b>KT_GiGA_5G_8B6F</b></div><button type="button" data-copy="KT_GiGA_5G_8B6F"><span class="ko">복사</span><span class="en">Copy</span></button></div>
+      <div class="copyrow"><div class="val"><small>SSID · 2.4G</small><b>KT_GiGA_8B6F</b></div><button type="button" data-copy="KT_GiGA_8B6F"><span class="ko">복사</span><span class="en">Copy</span></button></div>
+      <div class="copyrow"><div class="val"><small>PASSWORD</small><b>80cf01hh48</b></div><button type="button" data-copy="80cf01hh48"><span class="ko">복사</span><span class="en">Copy</span></button></div>
+      <p class="hint"><span class="ko">5G가 더 빠르고, 벽이 많은 곳에서는 2.4G가 더 잘 잡혀요. 아래 QR코드로도 연결할 수 있어요.</span><span class="en">5G is faster; 2.4G reaches better through walls. You can also connect with the QR code below.</span></p>
+      <div class="figs one" style="max-width:220px"><figure><img src="img/wifi_qr.png" alt="Wi-Fi QR" loading="lazy"></figure></div>
+    </div>
+  </details>
+
+  <!-- ============ APPLIANCES ============ -->
+  <details class="sec" id="appliances">
+    <summary>🎛️ <span class="ko">가전 사용법</span><span class="en">Appliances</span></summary>
+    <div class="sec-body">
+      <p class="hint"><span class="ko">사진을 누르면 크게 볼 수 있어요.</span><span class="en">Tap a photo to enlarge it.</span></p>
+
+      <h3>❄️ <span class="ko">에어컨</span><span class="en">Air conditioner</span></h3>
+      <div class="figs">
+        <figure><img src="img/ac_remote.jpg" alt="" loading="lazy"><figcaption><span class="ko">침실 1·2 (리모컨)</span><span class="en">Bedrooms 1 & 2 (remote)</span></figcaption></figure>
+        <figure><img src="img/ac_window.jpg" alt="" loading="lazy"><figcaption><span class="ko">침실 3 창문형 에어컨</span><span class="en">Bedroom 3 window unit</span></figcaption></figure>
+      </div>
+      <ul>
+        <li><span class="ko">리모컨의 <b>전원</b> 버튼으로 켜고 끄고, <b>운전 선택</b>으로 냉방·제습·송풍을 바꿔요.</span><span class="en">Use <b>Power</b> to turn it on or off, and <b>Operating Mode</b> to switch between cooling, dehumidifying and fan.</span></li>
+        <li><span class="ko">▲▼ 버튼으로 온도를, <b>바람 세기</b> 버튼으로 풍량을 조절해요.</span><span class="en">Set the temperature with ▲▼ and airflow with <b>Fan Speed</b>.</span></li>
+        <li><span class="ko">외출할 때는 에어컨을 꺼 주세요.</span><span class="en">Please switch it off when you go out.</span></li>
+      </ul>
+
+      <h3>🔥 <span class="ko">난방 · 온수 (보일러)</span><span class="en">Heating & hot water (boiler)</span></h3>
+      <div class="figs one"><figure><img src="img/thermostat.jpg" alt="" loading="lazy"></figure></div>
+      <ol>
+        <li><span class="ko"><b>온수 온도</b>: 온수 버튼 → 다이얼로 온도 조절 → 다이얼을 눌러 완료</span><span class="en"><b>Hot water</b>: press the hot water button → turn the dial → press the dial to confirm</span></li>
+        <li><span class="ko"><b>목욕 기능</b>: 온수 버튼을 두 번 누르세요.</span><span class="en"><b>Bath mode</b>: press the hot water button twice.</span></li>
+        <li><span class="ko"><b>실내 난방</b>: 난방 버튼 → 다이얼로 원하는 실내 온도 → 다이얼을 눌러 완료</span><span class="en"><b>Room heating</b>: press the heating button → turn the dial to the temperature you want → press the dial to confirm</span></li>
+      </ol>
+
+      <h3>📺 <span class="ko">TV · 넷플릭스</span><span class="en">TV & Netflix</span></h3>
+      <div class="figs one" style="max-width:360px"><figure><img src="img/tv_netflix.jpg" alt="" loading="lazy"></figure></div>
+      <ol>
+        <li><span class="ko">삼성 리모컨의 전원 버튼으로 TV를 켜요.</span><span class="en">Turn on the TV with the Samsung remote.</span></li>
+        <li><span class="ko"><b>Source</b>를 눌러 <b>HDMI 1</b>을 선택해요.</span><span class="en">Press <b>Source</b> and select <b>HDMI 1</b>.</span></li>
+        <li><span class="ko"><b>넷플릭스</b>: 케이블 리모컨의 NETFLIX 버튼 → 프로필 <b>“DAOL”</b> 선택</span><span class="en"><b>Netflix</b>: press NETFLIX on the cable remote → choose the profile <b>“DAOL”</b></span></li>
+        <li><span class="ko"><b>케이블 TV</b>: 케이블 리모컨으로 채널을 바꿔요. 화면이 안 나오면 셋톱박스가 켜져 있는지 확인해 주세요.</span><span class="en"><b>Cable TV</b>: change channels with the cable remote. If there’s no picture, check that the set-top box is on.</span></li>
+      </ol>
+
+      <h3>🍳 <span class="ko">인덕션</span><span class="en">Induction hotplate</span></h3>
+      <div class="figs">
+        <figure><img src="img/induction.jpg" alt="" loading="lazy"></figure>
+        <figure><img src="img/induction_panel.jpg" alt="" loading="lazy"></figure>
+      </div>
+      <ol>
+        <li><span class="ko">평평하고 물기 없는 곳에 두고 220V 콘센트에 꽂아요.</span><span class="en">Place it on a flat, dry, heat-resistant surface and plug it into a 220V outlet.</span></li>
+        <li><span class="ko">인덕션용 냄비(자석이 붙는 냄비)를 가운데에 올려요.</span><span class="en">Put an induction-compatible (magnetic) pot in the center.</span></li>
+        <li><span class="ko"><b>전원</b> 버튼으로 켜고 <b>+ / −</b>로 화력을 조절해요.</span><span class="en">Press <b>Power</b>, then adjust heat with <b>+ / −</b>.</span></li>
+        <li><span class="ko">다 쓰면 전원을 끄고 플러그를 뽑아 주세요.</span><span class="en">Turn it off and unplug it when you’re done.</span></li>
+      </ol>
+      <div class="warn"><span class="ko">사용 직후 상판은 뜨거워요(화면에 ‘H’ 표시). 빈 냄비를 올리거나 젖은 손으로 만지지 마세요. 숟가락·호일 같은 금속을 올리지 마세요. 오류가 나면 플러그를 뽑고 호스트에게 연락해 주세요.</span><span class="en">The surface stays hot after use (shown as “H”). Don’t heat an empty pot or touch it with wet hands, and keep spoons, foil and other metal off it. If it shows an error, unplug it and contact the host.</span></div>
+
+      <h3>🍲 <span class="ko">전자레인지</span><span class="en">Microwave</span></h3>
+      <div class="figs">
+        <figure><img src="img/microwave.jpg" alt="" loading="lazy"></figure>
+        <figure><img src="img/microwave_dials.jpg" alt="" loading="lazy"></figure>
+      </div>
+      <ol>
+        <li><span class="ko">음식을 넣고 문을 닫아요.</span><span class="en">Put your food in and close the door.</span></li>
+        <li><span class="ko">위쪽 다이얼로 세기를 골라요. 대부분은 <b>HIGH</b>, 냉동식품은 <b>DEFROST</b>.</span><span class="en">Choose power on the top dial: <b>HIGH</b> for most food, <b>DEFROST</b> for frozen.</span></li>
+        <li><span class="ko">아래쪽 다이얼을 시계 방향으로 돌려 시간을 맞추면 바로 시작돼요.</span><span class="en">Turn the bottom dial clockwise to set the minutes; it starts right away.</span></li>
+      </ol>
+
+      <h3>🧺 <span class="ko">세탁기</span><span class="en">Washing machine</span></h3>
+      <div class="figs one" style="max-width:420px"><figure><img src="img/washer.jpg" alt="" loading="lazy"></figure></div>
+      <ol>
+        <li><span class="ko">세제 투입구를 당겨 열고, 왼쪽에 세제·오른쪽에 섬유유연제를 넣어요. MAX 선을 넘지 않게 넣고 잘 닫아 주세요.</span><span class="en">Pull out the dispenser: detergent on the left, fabric softener on the right. Don’t go over the MAX line, and close it well.</span></li>
+        <li><span class="ko"><b>전원</b> 버튼을 눌러요.</span><span class="en">Press <b>Power</b>.</span></li>
+        <li><span class="ko">다이얼을 돌려 <b>표준세탁</b>을 선택해요.</span><span class="en">Turn the dial to <b>Standard</b> (표준세탁).</span></li>
+        <li><span class="ko"><b>동작/일시정지</b> 버튼을 눌러 시작해요.</span><span class="en">Press <b>Start/Pause</b> to begin.</span></li>
+      </ol>
+
+      <h3>🌬️ <span class="ko">건조기</span><span class="en">Dryer</span></h3>
+      <div class="figs one" style="max-width:420px"><figure><img src="img/dryer.jpg" alt="" loading="lazy"></figure></div>
+      <ol>
+        <li><span class="ko">쓰기 전에 <b>물통을 비워</b> 주세요.</span><span class="en"><b>Empty the water tank</b> first.</span></li>
+        <li><span class="ko">문 아래쪽 <b>필터</b>를 빼서 먼지를 털어 주세요.</span><span class="en">Pull out the <b>filter</b> at the bottom of the door and clean it.</span></li>
+        <li><span class="ko">전원 → 다이얼로 <b>표준</b> 선택 → 동작 버튼으로 시작해요.</span><span class="en">Power → turn the dial to <b>Standard</b> (표준) → press Start.</span></li>
+      </ol>
+      <p class="hint"><span class="ko">세탁기와 건조기는 무료로 쓰실 수 있어요.</span><span class="en">The washer and dryer are free to use.</span></p>
+    </div>
+  </details>
+
+  <!-- ============ WASTE ============ -->
+  <details class="sec" id="waste">
+    <summary>🗑️ <span class="ko">쓰레기 버리기</span><span class="en">Waste Disposal</span></summary>
+    <div class="sec-body">
+      <h3><span class="ko">1. 일반 쓰레기</span><span class="en">1. General waste</span></h3>
+      <div class="figs">
+        <figure class="sq"><img src="img/waste_white.jpg" alt="" loading="lazy"><figcaption><span class="ko">흰색 종량제 봉투 (10L)</span><span class="en">White bag (10L)</span></figcaption></figure>
+        <figure class="sq"><img src="img/waste_purple.jpg" alt="" loading="lazy"><figcaption><span class="ko">보라색 종량제 봉투 (20L)</span><span class="en">Purple bag (20L)</span></figcaption></figure>
+      </div>
+      <ul>
+        <li><span class="ko">일반 쓰레기는 준비된 흰색(10L)·보라색(20L) 종량제 봉투에 넣어 주세요.</span><span class="en">Put general waste in the white (10L) or purple (20L) bags provided.</span></li>
+        <li><span class="ko">봉투가 가득 차면 호스트에게 메시지를 보내 주세요.</span><span class="en">When a bag is full, send the host a message.</span></li>
+      </ul>
+
+      <h3><span class="ko">2. 음식물 쓰레기</span><span class="en">2. Food waste</span></h3>
+      <div class="figs">
+        <figure class="sq"><img src="img/waste_food.jpg" alt="" loading="lazy"><figcaption><span class="ko">파란색 음식물 봉투</span><span class="en">Blue food-waste bag</span></figcaption></figure>
+        <figure class="sq"><img src="img/waste_food_bin.jpg" alt="" loading="lazy"><figcaption><span class="ko">1층 입구 화단 옆 회색 통</span><span class="en">Gray bin by the 1F entrance garden</span></figcaption></figure>
+      </div>
+      <ul>
+        <li><span class="ko">물기를 빼고 파란색 봉투에 담아 싱크대에 두세요.</span><span class="en">Drain the moisture, put it in the blue bag and leave the bag in the sink.</span></li>
+        <li><span class="ko">(선택) 봉투가 가득 차면 1층 입구 화단 옆 회색 통에 넣어 주셔도 돼요.</span><span class="en">(Optional) When it’s full, you can put it in the gray bin next to the 1F entrance garden.</span></li>
+      </ul>
+
+      <h3><span class="ko">3. 재활용 · 사용한 수건</span><span class="en">3. Recycling & used towels</span></h3>
+      <div class="figs one" style="max-width:420px"><figure><img src="img/waste_recycle.jpg" alt="" loading="lazy"></figure></div>
+      <p><span class="ko">플라스틱, 병 같은 재활용품과 사용한 수건은 이름표가 붙은 바구니에 나눠 넣어 주세요.</span><span class="en">Sort plastics, bottles and other recyclables, plus used towels, into the labeled baskets.</span></p>
+    </div>
+  </details>
+
+  <!-- ============ AMENITIES ============ -->
+  <details class="sec" id="amenities">
+    <summary>🧴 <span class="ko">비품 · 시설</span><span class="en">Supplies & Amenities</span></summary>
+    <div class="sec-body">
+      <h3><span class="ko">생활</span><span class="en">Household</span></h3>
+      <ul>
+        <li><span class="ko">Wi-Fi, 50인치 TV (넷플릭스)</span><span class="en">Wi-Fi, 50-inch TV with Netflix</span></li>
+        <li><span class="ko">퀸 침대 2, 싱글 침대 2, 소파베드 1</span><span class="en">2 queen beds, 2 single beds, 1 sofa bed</span></li>
+        <li><span class="ko">블라인드 · 암막 커튼, 에어컨</span><span class="en">Blinds & blackout curtains, air conditioners</span></li>
+        <li><span class="ko">세탁기 · 건조기 · 빨래 건조대, 옷걸이</span><span class="en">Washer, dryer, drying rack, hangers</span></li>
+        <li><span class="ko">냉장고, 6인 식탁과 의자</span><span class="en">Refrigerator, table and chairs for six</span></li>
+      </ul>
+      <h3><span class="ko">주방</span><span class="en">Kitchen</span></h3>
+      <ul>
+        <li><span class="ko">전자레인지, 가스레인지 · 인덕션</span><span class="en">Microwave, gas stove & induction hotplate</span></li>
+        <li><span class="ko">냄비 · 프라이팬, 조리도구, 전기밥솥</span><span class="en">Pots and pans, utensils, rice cooker</span></li>
+        <li><span class="ko">정수기, 전기주전자, 와인 오프너 · 와인잔</span><span class="en">Water purifier, electric kettle, wine opener & glasses</span></li>
+      </ul>
+      <h3><span class="ko">욕실 · 화장대</span><span class="en">Bathroom & vanity</span></h3>
+      <ul>
+        <li><span class="ko">수건 1인 2장, 샴푸 · 컨디셔너 · 바디워시, 칫솔 · 치약</span><span class="en">2 towels per guest, shampoo, conditioner, body wash, toothbrush & toothpaste</span></li>
+        <li><span class="ko">헤어드라이어, 머리끈, 화장솜, 면봉</span><span class="en">Hair dryer, hair ties, cotton pads, cotton swabs</span></li>
+      </ul>
+      <p class="note"><span class="ko">여분의 수건과 휴지는 욕실 거울 뒤 선반에 있어요.</span><span class="en">Extra towels and toilet paper are on the shelf behind the bathroom mirror.</span></p>
+    </div>
+  </details>
+
+  <!-- ============ RULES ============ -->
+  <details class="sec" id="rules">
+    <summary>📋 <span class="ko">이용 규칙</span><span class="en">House Rules</span></summary>
+    <div class="sec-body">
+      <ul>
+        <li><span class="ko">조용한 주택가예요. 이웃 민원이 생길 수 있으니 소리에 신경 써 주세요. <b>밤 10시~아침 8시</b>는 특히 조용히 부탁드려요.</span><span class="en">This is a quiet residential area and neighbors may complain, so please mind the noise, especially <b>10 pm–8 am</b>.</span></li>
+        <li><span class="ko">실내 <b>금연</b>이에요. 파티나 행사는 할 수 없어요.</span><span class="en"><b>No smoking</b> indoors, and no parties or events.</span></li>
+        <li><span class="ko">다음 손님을 위해 냄새가 강한 음식은 조리를 삼가 주세요.</span><span class="en">Please avoid cooking strong-smelling food, for the next guests.</span></li>
+        <li><span class="ko">벽지·가구·침구·러그에 지워지지 않는 얼룩이 생기거나, 음식물·이물질로 변기가 막히면 별도 배상이 필요할 수 있어요.</span><span class="en">Irreversible stains on wallpaper, furniture, bedding or rugs, or a toilet clogged by food or objects, may require compensation.</span></li>
+        <li><span class="ko">다음 손님을 위해 준비해 둔 물품을 쓰면 추가 요금이 생길 수 있어요.</span><span class="en">Using items set aside for the next guests may incur extra charges.</span></li>
+        <li><span class="ko">사용한 수건은 세탁기에 넣어 주시면 정말 감사해요 ^^</span><span class="en">We’d really appreciate used towels going into the washing machine ^^</span></li>
+        <li><span class="ko">체크아웃 전에 두고 가는 물건이 없는지 한 번 더 확인해 주세요.</span><span class="en">Before check-out, please check you haven’t left anything behind.</span></li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ============ NEARBY ============ -->
+  <details class="sec" id="nearby">
+    <summary>🍽️ <span class="ko">주변 정보</span><span class="en">Nearby</span></summary>
+    <div class="sec-body">
+      <a class="card-link nb" href="../neighborhood/#eat" style="margin-bottom:14px">
+        <i>🚶</i>
+        <span><b class="ko">동네 가이드에서 자세히 보기</b><b class="en">See the neighborhood guide</b><small class="ko">밥집 9곳, 마트·편의점, 도보 시간</small><small class="en">9 restaurants, groceries, walking times</small></span>
+        <em>›</em>
+      </a>
+      <ul>
+        <li><span class="ko"><b>숙소 1층</b> 바리스타 카페</span><span class="en">A barista café on the <b>ground floor</b> of the building</span></li>
+        <li><span class="ko">세븐일레븐 도보 2분 · CU 도보 3분 (24시간)</span><span class="en">7-Eleven 2 min · CU 3 min (both 24 h)</span></li>
+        <li><span class="ko">롯데프레시 도보 3분 (09:00–23:00, 둘째·넷째 일요일 휴무)</span><span class="en">Lotte Fresh supermarket 3 min (09:00–23:00, closed 2nd & 4th Sundays)</span></li>
+        <li><span class="ko">올리브영 (10:00–22:30), 다이소</span><span class="en">Olive Young (10:00–22:30), Daiso</span></li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ============ EMERGENCY ============ -->
+  <details class="sec" id="emergency">
+    <summary>🚨 <span class="ko">비상 연락처</span><span class="en">Emergency</span></summary>
+    <div class="sec-body">
+      <div class="tels">
+        <a href="tel:112"><b>112</b><span class="ko">경찰</span><span class="en">Police</span></a>
+        <a href="tel:119"><b>119</b><span class="ko">화재 · 구급</span><span class="en">Fire & ambulance</span></a>
+        <a href="tel:1330"><b>1330</b><span class="ko">관광통역안내</span><span class="en">Travel helpline</span></a>
+      </div>
+      <p class="hint" style="margin-top:0"><span class="ko">1330은 영어·중국어·일본어·러시아어로 24시간, 베트남어·태국어·말레이/인도네시아어로 08:00–19:00 안내해요.</span><span class="en">1330 answers 24/7 in English, Chinese, Japanese and Russian, and 08:00–19:00 in Vietnamese, Thai and Malay/Indonesian.</span></p>
+      <p><span class="ko">숙소에는 소화기, 구급상자, 화재경보기, 일산화탄소 경보기가 있어요.</span><span class="en">The house has a fire extinguisher, first-aid kit, smoke alarm and carbon monoxide alarm.</span></p>
+    </div>
+  </details>
+
+  <!-- ============ FAQ ============ -->
+  <details class="sec" id="faq">
+    <summary>💡 <span class="ko">자주 묻는 질문</span><span class="en">FAQ</span></summary>
+    <div class="sec-body">
+      <div class="qa"><b><span class="ko">체크인 전에 짐을 맡길 수 있나요?</span><span class="en">Can I drop off luggage before check-in?</span></b><p><span class="ko">네, 가능해요. 도착 시간을 메시지로 알려 주세요.</span><span class="en">Yes. Just message us your arrival time.</span></p></div>
+      <div class="qa"><b><span class="ko">일찍 체크인하거나 늦게 체크아웃할 수 있나요?</span><span class="en">Can I check in early or check out late?</span></b><p><span class="ko">앞뒤 예약에 따라 달라요. 메시지로 먼저 물어봐 주세요.</span><span class="en">It depends on other bookings. Please ask us by message first.</span></p></div>
+      <div class="qa"><b><span class="ko">공항까지 차를 불러 주실 수 있나요?</span><span class="en">Can you call me an airport van or taxi?</span></b><p><span class="ko">네, 원하시면 공항 밴이나 택시를 대신 불러 드려요. 미리 말씀해 주세요.</span><span class="en">Yes, we can call an airport van or taxi for you. Let us know in advance.</span></p></div>
+      <div class="qa"><b><span class="ko">여분의 수건은 어디 있나요?</span><span class="en">Where are the extra towels?</span></b><p><span class="ko">욕실 거울 뒤 선반에 수건과 휴지가 있어요.</span><span class="en">On the shelf behind the bathroom mirror, with spare toilet paper.</span></p></div>
+      <div class="qa"><b><span class="ko">넷플릭스는 어떻게 보나요?</span><span class="en">How do I watch Netflix?</span></b><p><span class="ko">TV를 HDMI 1로 두고 케이블 리모컨의 NETFLIX 버튼 → “DAOL” 프로필이에요. <a href="#appliances">가전 사용법</a>을 참고하세요.</span><span class="en">Set the TV to HDMI 1, press NETFLIX on the cable remote and pick the “DAOL” profile. See <a href="#appliances">Appliances</a>.</span></p></div>
+      <div class="qa"><b><span class="ko">담배는 어디서 피우나요?</span><span class="en">Where can I smoke?</span></b><p><span class="ko">실내는 금연이에요. 건물 밖에서 이웃에게 방해되지 않게 부탁드려요.</span><span class="en">Not indoors. Please smoke outside the building, away from the neighbors.</span></p></div>
+    </div>
+  </details>
+
+  <!-- ============ CONTACT ============ -->
+  <details class="sec" id="contact" open>
+    <summary>💬 <span class="ko">문의하기</span><span class="en">Need Assistance?</span></summary>
+    <div class="sec-body">
+      <p><span class="ko">궁금한 점은 <b>Airbnb 또는 Booking.com 메시지</b>로 편하게 연락 주세요.</span><span class="en">Feel free to contact us via <b>Airbnb or Booking.com message</b>.</span></p>
+      <p><span class="ko">급한 경우에는 전화 주세요.</span><span class="en">For urgent matters, please call.</span></p>
+      <a class="btn" href="tel:+821088890142">📞 +82-10-8889-0142</a>
+    </div>
+  </details>
+
+  <footer style="padding-top:28px"><img src="../photos/logo.png" alt=""><div>&copy; 2026 DAOL STAY · <span class="ko">다올스테이</span><span class="en">Seocho, Seoul</span></div></footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer"><img alt=""></div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+
+  /* ---- language ---- */
+  function setLang(l){
+    root.setAttribute("data-lang", l);
+    root.setAttribute("lang", l);
+    document.querySelectorAll("[data-setlang]").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.setlang===l)); });
+    try{ localStorage.setItem("daol-guide-lang", l); }catch(e){}
+  }
+  setLang(root.getAttribute("data-lang")==="en" ? "en" : "ko");
+  document.querySelectorAll("[data-setlang]").forEach(function(b){ b.addEventListener("click", function(){ setLang(b.dataset.setlang); }); });
+
+  // 일본어·중국어 게스트: 이 가이드는 한/영뿐이라 한 줄 안내를 보여 주고, 동네 가이드는 그 언어로 열어요.
+  (function(){
+    var site = null;
+    try{ site = localStorage.getItem("daol-lang"); }catch(e){}
+    var pref = (site==="ja" || site==="zh") ? site : (navigator.language||"").toLowerCase().slice(0,2);
+    var NOTE = {
+      ja:"このガイドは英語と韓国語でご案内しています。周辺ガイドは日本語でご覧いただけます。",
+      zh:"本指南提供英文和韩文版本。周边指南有中文版。"
+    };
+    if(!NOTE[pref]) return;
+    var n = document.getElementById("langNote");
+    n.textContent = NOTE[pref]; n.hidden = false;
+    document.querySelectorAll('a[href^="../neighborhood/"]').forEach(function(a){
+      a.href = "../neighborhood/#" + pref;
+    });
+  })();
+
+  /* ---- top bar ---- */
+  var bar = document.getElementById("bar"), hero = document.getElementById("top");
+  function onScroll(){ bar.classList.toggle("solid", window.scrollY > hero.offsetHeight - 70); }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  /* ---- copy ---- */
+  var toast = document.getElementById("toast");
+  function say(msg){ toast.textContent = msg; toast.classList.add("show"); setTimeout(function(){ toast.classList.remove("show"); }, 1600); }
+  function copy(text, btn){
+    var ok = function(){
+      btn.classList.add("done"); setTimeout(function(){ btn.classList.remove("done"); }, 1200);
+      say(root.getAttribute("data-lang")==="en" ? "Copied" : "복사했어요");
+    };
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(text).then(ok, function(){ fallback(text, ok); }); }
+    else fallback(text, ok);
+  }
+  function fallback(text, ok){
+    var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly","");
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0"; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); ok(); }catch(e){ say(text); }
+    ta.remove();
+  }
+  document.querySelectorAll("[data-copy]").forEach(function(b){ b.addEventListener("click", function(){ copy(b.dataset.copy, b); }); });
+
+  /* ---- open a section when jumping to it ---- */
+  function openTarget(){
+    var id = (location.hash||"").slice(1);
+    var el = id && document.getElementById(id);
+    if(el && el.tagName==="DETAILS") el.open = true;
+  }
+  window.addEventListener("hashchange", openTarget); openTarget();
+
+  /* ---- lightbox ---- */
+  var lb = document.getElementById("lightbox"), lbImg = lb.querySelector("img");
+  document.querySelectorAll(".sec figure img").forEach(function(img){
+    img.addEventListener("click", function(){ lbImg.src = img.src; lb.classList.add("on"); document.body.style.overflow = "hidden"; });
+  });
+  function closeLb(){ lb.classList.remove("on"); lbImg.removeAttribute("src"); document.body.style.overflow = ""; }
+  lb.addEventListener("click", closeLb);
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape" && lb.classList.contains("on")) closeLb(); });
+})();
+</script>
 </body>
 </html>
